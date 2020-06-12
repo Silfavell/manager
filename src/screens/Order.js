@@ -7,7 +7,8 @@ const cookies = new Cookies()
 class Order extends React.Component {
 
     onDetailsClick = () => {
-        window.location.replace(`/details/${this.props.order._id}`)
+        window.history.pushState({}, null, `/details/${this.props.order._id}`)
+        window.location.reload()
     }
 
     onConfirmClick = () => {
@@ -59,7 +60,7 @@ class Order extends React.Component {
 
         return (
             <div className='col-md-12 row m-4 border-bottom'>
-                <div className='col-md-10 d-flex flex-column justify-content-between py-2'>
+                <div className='col-md-10 d-flex flex-column justify-content-between align-items-center py-2'>
                     <div>Alıcı: {order.customer}</div>
                     <div>Tarih: {new Date(order.date).toLocaleDateString('tr', { day: '2-digit', month: '2-digit', year: 'numeric' })}</div>
                     <div>Adres: {order.address}</div>

@@ -1,10 +1,7 @@
 import React from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-const cookies = new Cookies()
 
 class Register extends React.Component {
 
