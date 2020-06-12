@@ -6,40 +6,50 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 
 const cookies = new Cookies()
 
-class Login extends React.Component {
+class Register extends React.Component {
 
     state = {
-        phoneNumber: '905468133191',
-        password: '1234'
+        phoneNumber: '905468133192',
+        nameSurname: 'Muhammet İpek',
+        password: '1234',
+        email: 'muhammetipek3457@hotmail.com'
     }
 
     onPhoneChange = (event) => {
         this.setState({ phoneNumber: event.target.value })
     }
 
+    onNameSurnameChange = (event) => {
+        this.setState({ nameSurname: event.target.value })
+    }
+
+    onEmailChange = (event) => {
+        this.setState({ email: event.target.value })
+    }
+
     onPasswordChange = (event) => {
         this.setState({ password: event.target.value })
     }
 
-    onLoginClick = () => {
-        axios.post('http://127.0.0.1:3000/login-manager', {
-            phoneNumber: this.state.phoneNumber,
-            password: this.state.password
-        }).then((response) => {
-            if (response.data.token) {
-                cookies.set('token', response.data.token)
-                this.props.history.push('/')
-            } else {
-                alert('Şifre veya telefon numarası yanlış!')
-            }
-        }).catch((err) => {
-            console.log('err', err)
-            alert('Beklenmedik bir hata oluştu!')
-        })
+    onBackToLoginClick = () => {
+        this.props.history.push('/login')
     }
 
     onRegisterClick = () => {
-        this.props.history.push('/register')
+        axios.post('http://127.0.0.1:3000/send-activation-code', {
+            phoneNumber: this.state.phoneNumber,
+            activationCodeType: 2 // REGISTER MANAGER
+        }).then(({ status }) => {
+            if (status === 202) {
+                alert('ok')
+                this.props.history.push({
+                    pathname: '/activation',
+                    state: this.state
+                })
+            }
+        }).catch((err) => {
+            console.log('err', err.response.data)
+        })
     }
 
     render() {
@@ -63,6 +73,18 @@ class Login extends React.Component {
                         <div className='form-group row'>
                             <div className='col-md-12'>
                                 <input
+                                    type='text'
+                                    placeholder='Adı Soyadı'
+                                    onChange={this.onNameSurnameChange}
+                                    value={this.state.nameSurname}
+                                    className='form-control'
+                                />
+                            </div>
+                        </div>
+
+                        <div className='form-group row'>
+                            <div className='col-md-12'>
+                                <input
                                     type='password'
                                     placeholder='Şifre'
                                     onChange={this.onPasswordChange}
@@ -72,13 +94,24 @@ class Login extends React.Component {
                         </div>
 
                         <div className='form-group row'>
+                            <div className='col-md-12'>
+                                <input
+                                    type='text'
+                                    placeholder='E-Mail'
+                                    onChange={this.onEmailChange}
+                                    value={this.state.email}
+                                    className='form-control' />
+                            </div>
+                        </div>
+
+                        <div className='form-group row'>
 
                             <div className='col-md-6'>
                                 <button
                                     type='text'
-                                    onClick={this.onLoginClick}
+                                    onClick={this.onBackToLoginClick}
                                     className='btn btn-primary btn-block'>
-                                    Giriş Yap
+                                    Giriş'e Dön
                                 </button>
                             </div>
 
@@ -99,4 +132,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login
+export default Register
