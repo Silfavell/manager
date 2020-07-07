@@ -16,7 +16,7 @@ class Order extends React.Component {
 
         if (trackingNumber) {
             if (trackingNumber.length === 12) {
-                axios.put(`http://127.0.0.1:3000/manager/orders/confirm/${this.props.order._id}`,
+                axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/confirm/${this.props.order._id}`,
                     { trackingNumber },
                     { headers: { Authorization: cookies.get('token') } })
                     .then(({ status }) => {
@@ -37,7 +37,7 @@ class Order extends React.Component {
 
         if (cancellationReason) {
             if (cancellationReason.length > 10) {
-                axios.put(`http://127.0.0.1:3000/manager/orders/cancel/${this.props.order._id}`,
+                axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/cancel/${this.props.order._id}`,
                     { cancellationReason },
                     { headers: { Authorization: cookies.get('token') } })
                     .then(({ status }) => {
