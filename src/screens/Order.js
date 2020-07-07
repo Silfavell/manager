@@ -55,16 +55,21 @@ class Order extends React.Component {
 
     render() {
         const {
-            order
+            order: {
+                customer,
+                date,
+                address,
+                paidPrice
+            }
         } = this.props
 
         return (
             <div className='col-md-12 row m-4 border-bottom'>
                 <div className='col-md-10 d-flex flex-column justify-content-between align-items-center py-2'>
-                    <div>Alıcı: {order.customer}</div>
-                    <div>Tarih: {new Date(order.date).toLocaleDateString('tr', { day: '2-digit', month: '2-digit', year: 'numeric' })}</div>
-                    <div>Adres: {order.address}</div>
-                    <div>Ürünler: {order.products.map(product => product?.name + ' x ' + product?.quantity + ' ')}</div>
+                    <div>Alıcı: {customer}</div>
+                    <div>Tarih: {new Date(date).toLocaleDateString('tr', { day: '2-digit', month: '2-digit', year: 'numeric' })}</div>
+                    <div>Adres: {address}</div>
+                    <div>Toplam Ücret: {paidPrice.toFixed(2).replace('.', ',')}</div>
                 </div>
 
                 <div className='col-md-2'>
