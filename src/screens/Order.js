@@ -12,7 +12,7 @@ class Order extends React.Component {
     }
 
     onConfirmClick = () => {
-        const trackingNumber = prompt('Takip Numarası')
+        const trackingNumber = prompt('Kargo Takip Numarası')
 
         if (trackingNumber) {
             if (trackingNumber.length === 12) {
