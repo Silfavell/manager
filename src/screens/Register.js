@@ -33,7 +33,7 @@ class Register extends React.Component {
     }
 
     onRegisterClick = () => {
-        axios.post('http://127.0.0.1:3000/send-activation-code', {
+        axios.post(`${process.env.REACT_APP_API_URL}/send-activation-code`, {
             phoneNumber: this.state.phoneNumber,
             activationCodeType: 2 // REGISTER MANAGER
         }).then(({ status }) => {

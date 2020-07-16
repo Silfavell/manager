@@ -15,7 +15,7 @@ class Details extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        axios.get(`http://127.0.0.1:3000/manager/order/${this.props.match.params.id}`,
+        axios.get(`${process.env.REACT_APP_API_URL}/manager/order/${this.props.match.params.id}`,
             { headers: { Authorization: cookies.get('token') } }
         ).then(({ data }) => {
             console.log('data', data)

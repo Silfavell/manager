@@ -19,11 +19,7 @@ class Activation extends React.Component {
     }
 
     onRegisterClick = () => {
-        console.log({
-            ...this.props.history.location.state,
-            activationCode: this.state.activationCode
-        })
-        axios.post('http://127.0.0.1:3000/register-manager', {
+        axios.post(`${process.env.REACT_APP_API_URL}/register-manager`, {
             ...this.props.history.location.state,
             activationCode: this.state.activationCode
         }).then(({ data, status }) => {

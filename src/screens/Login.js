@@ -9,8 +9,8 @@ const cookies = new Cookies()
 class Login extends React.Component {
 
     state = {
-        phoneNumber: '905468133191',
-        password: '1234'
+        phoneNumber: '',
+        password: ''
     }
 
     onPhoneChange = (event) => {
@@ -22,7 +22,8 @@ class Login extends React.Component {
     }
 
     onLoginClick = () => {
-        axios.post('http://127.0.0.1:3000/login-manager', {
+        console.log(process.env.REACT_APP_API_URL)
+        axios.post(`${process.env.REACT_APP_API_URL}/login-manager`, {
             phoneNumber: this.state.phoneNumber,
             password: this.state.password
         }).then((response) => {
