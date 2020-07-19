@@ -14,13 +14,13 @@ class Home extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        if (!cookies.get('token')) {
+        if (!cookies.get('manager-token')) {
             this.props.history.push('/login')
         }
 
         axios.get(`${process.env.REACT_APP_API_URL}/manager/orders`, {
             headers: {
-                Authorization: cookies.get('token')
+                Authorization: cookies.get('manager-token')
             }
         }).then(({ data, status }) => {
             if (status === 200) {

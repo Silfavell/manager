@@ -18,7 +18,7 @@ class Order extends React.Component {
             if (trackingNumber.length === 12) {
                 axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/confirm/${this.props.order._id}`,
                     { trackingNumber },
-                    { headers: { Authorization: cookies.get('token') } })
+                    { headers: { Authorization: cookies.get('manager-token') } })
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Sipariş onaylanmıştır.')
@@ -39,7 +39,7 @@ class Order extends React.Component {
             if (cancellationReason.length > 10) {
                 axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/cancel/${this.props.order._id}`,
                     { cancellationReason },
-                    { headers: { Authorization: cookies.get('token') } })
+                    { headers: { Authorization: cookies.get('manager-token') } })
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Sipariş Iptal Edilmiştir.')

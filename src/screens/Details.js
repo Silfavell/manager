@@ -16,7 +16,7 @@ class Details extends React.Component {
 
     UNSAFE_componentWillMount() {
         axios.get(`${process.env.REACT_APP_API_URL}/manager/order/${this.props.match.params.id}`,
-            { headers: { Authorization: cookies.get('token') } }
+            { headers: { Authorization: cookies.get('manager-token') } }
         ).then(({ data }) => {
             console.log('data', data)
             this.setState({ order: data })

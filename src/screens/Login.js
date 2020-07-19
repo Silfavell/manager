@@ -22,13 +22,12 @@ class Login extends React.Component {
     }
 
     onLoginClick = () => {
-        console.log(process.env.REACT_APP_API_URL)
         axios.post(`${process.env.REACT_APP_API_URL}/login-manager`, {
             phoneNumber: this.state.phoneNumber,
             password: this.state.password
         }).then((response) => {
             if (response.data.token) {
-                cookies.set('token', response.data.token)
+                cookies.set('manager-token', response.data.token)
                 this.props.history.push('/')
             } else {
                 alert('Şifre veya telefon numarası yanlış!')
