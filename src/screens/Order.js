@@ -142,7 +142,6 @@ class Order extends React.Component {
                 </div>
 
                 <div className='col-md-2'>
-
                     <div className='form-group row'>
                         <div className='col-md-12'>
                             {
