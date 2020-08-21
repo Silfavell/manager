@@ -6,10 +6,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 class Register extends React.Component {
 
     state = {
-        phoneNumber: '905468133192',
-        nameSurname: 'Muhammet İpek',
-        password: '1234',
-        email: 'muhammetipek3457@hotmail.com'
+        phoneNumber: '',
+        nameSurname: '',
+        password: '',
+        email: ''
     }
 
     onPhoneChange = (event) => {

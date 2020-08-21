@@ -12,12 +12,12 @@ class Order extends React.Component {
     }
 
     onConfirmClick = () => {
-        const trackingNumber = prompt('Kargo Takip Numarası')
+        const message = prompt('Kargo Takip Numarası')
 
-        if (trackingNumber) {
-            if (trackingNumber.length === 12) {
+        if (message) {
+            if (message.length === 12) {
                 axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/confirm/${this.props.order._id}`,
-                    { trackingNumber },
+                    { message },
                     { headers: { Authorization: cookies.get('manager-token') } })
                     .then(({ status }) => {
                         if (status === 200) {
@@ -33,12 +33,12 @@ class Order extends React.Component {
     }
 
     onCancelClick = () => {
-        const cancellationReason = prompt('Iptal Sebebi')
+        const message = prompt('Iptal Sebebi')
 
-        if (cancellationReason) {
-            if (cancellationReason.length > 10) {
+        if (message) {
+            if (message.length > 10) {
                 axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/cancel/${this.props.order._id}`,
-                    { cancellationReason },
+                    { message },
                     { headers: { Authorization: cookies.get('manager-token') } })
                     .then(({ status }) => {
                         if (status === 200) {
@@ -53,11 +53,80 @@ class Order extends React.Component {
         }
     }
 
+    onConfirmReturnClick = () => {
+        const confirm = confirm('Iadeyi onaylıyor musunuz ?')
+
+        if (confirm) {
+            axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/accept-return/${this.props.order._id}`,
+                { headers: { Authorization: cookies.get('manager-token') } })
+                .then(({ status }) => {
+                    if (status === 200) {
+                        alert('Sipariş Iadesi Kabul Edilmiştir.')
+                    }
+                }).catch((reason) => {
+                    alert(reason.message)
+                })
+        }
+    }
+
+    onCancelReturnClick = () => {
+        const message = prompt('Iade Iptal Sebebi')
+
+        if (message) {
+            if (message.length > 10) {
+                axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/cancel-return/${this.props.order._id}`,
+                    { message },
+                    { headers: { Authorization: cookies.get('manager-token') } })
+                    .then(({ status }) => {
+                        if (status === 200) {
+                            alert('Iade Iptal Edilmiştir.')
+                        }
+                    }).catch((reason) => {
+                        alert(reason.message)
+                    })
+            } else {
+                alert('Lütfen 10 karaterden uzun iade iptal sebebi giriniz.')
+            }
+        }
+    }
+
+    renderButton = (title, func) => (
+        <div className='form-group row'>
+            <div className='col-md-12'>
+                <button
+                    type='text'
+                    onClick={func}
+                    className='btn btn-primary btn-block'>{title}</button>
+            </div>
+        </div>
+    )
+
+    getButtons = () => {
+        switch (this.props.order.status) {
+            case 0: return (
+                <>
+                    {this.renderButton('Onayla', this.onConfirmClick)}
+                    {this.renderButton('Iptal Et', this.onCancelClick)}
+                </>
+            )
+
+            case 3: return (
+                <>
+                    {this.renderButton('Iadeyi Kabul Et', this.onConfirmReturnClick)}
+                    {this.renderButton('Iadet Reddet', this.onCancelReturnClick)}
+                </>
+            )
+
+            default: return null
+        }
+    }
+
     render() {
         const {
             order: {
                 customer,
                 date,
+                status,
                 address,
                 paidPrice
             }
@@ -76,36 +145,14 @@ class Order extends React.Component {
 
                     <div className='form-group row'>
                         <div className='col-md-12'>
-                            <button
-                                type='text'
-                                onClick={this.onDetailsClick}
-                                className='btn btn-primary btn-block'>
-                                Detaya git
-                            </button>
+                            {
+                                this.renderButton('Detaya Git', this.onDetailsClick)
+                            }
                         </div>
                     </div>
-
-                    <div className='form-group row'>
-                        <div className='col-md-12'>
-                            <button
-                                type='text'
-                                onClick={this.onConfirmClick}
-                                className='btn btn-primary btn-block'>
-                                Onayla
-                            </button>
-                        </div>
-                    </div>
-
-                    <div className='form-group row'>
-                        <div className='col-md-12'>
-                            <button
-                                type='text'
-                                onClick={this.onCancelClick}
-                                className='btn btn-primary btn-block'>
-                                Iptal Et
-                            </button>
-                        </div>
-                    </div>
+                    {
+                        this.getButtons()
+                    }
                 </div>
             </div>
         )
