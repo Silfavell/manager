@@ -57,7 +57,7 @@ class Order extends React.Component {
         const confirm = window.confirm('Iadeyi onaylıyor musunuz ?')
 
         if (confirm) {
-            axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/accept-return/${this.props.order._id}`,
+            axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/accept-return/${this.props.order._id}`, {},
                 { headers: { Authorization: cookies.get('manager-token') } })
                 .then(({ status }) => {
                     if (status === 200) {
@@ -102,6 +102,7 @@ class Order extends React.Component {
     )
 
     getButtons = () => {
+        console.log(this.props.order.status)
         switch (this.props.order.status) {
             case 0: return (
                 <>
@@ -110,7 +111,7 @@ class Order extends React.Component {
                 </>
             )
 
-            case 3: return (
+            case 5: return (
                 <>
                     {this.renderButton('Iadeyi Kabul Et', this.onConfirmReturnClick)}
                     {this.renderButton('Iadet Reddet', this.onCancelReturnClick)}
@@ -147,11 +148,11 @@ class Order extends React.Component {
                             {
                                 this.renderButton('Detaya Git', this.onDetailsClick)
                             }
+                            {
+                                this.getButtons()
+                            }
                         </div>
                     </div>
-                    {
-                        this.getButtons()
-                    }
                 </div>
             </div>
         )
