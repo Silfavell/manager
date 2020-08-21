@@ -54,7 +54,7 @@ class Order extends React.Component {
     }
 
     onConfirmReturnClick = () => {
-        const confirm = confirm('Iadeyi onaylıyor musunuz ?')
+        const confirm = window.confirm('Iadeyi onaylıyor musunuz ?')
 
         if (confirm) {
             axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/accept-return/${this.props.order._id}`,
@@ -126,7 +126,6 @@ class Order extends React.Component {
             order: {
                 customer,
                 date,
-                status,
                 address,
                 paidPrice
             }
