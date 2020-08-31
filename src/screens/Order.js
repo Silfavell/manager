@@ -22,6 +22,7 @@ class Order extends React.Component {
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Sipariş onaylanmıştır.')
+                            window.location.reload()
                         }
                     }).catch((reason) => {
                         alert(reason.message)
@@ -43,6 +44,7 @@ class Order extends React.Component {
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Sipariş Iptal Edilmiştir.')
+                            window.location.reload()
                         }
                     }).catch((reason) => {
                         alert(reason.message)
@@ -62,6 +64,7 @@ class Order extends React.Component {
                 .then(({ status }) => {
                     if (status === 200) {
                         alert('Sipariş Iadesi Kabul Edilmiştir.')
+                        window.location.reload()
                     }
                 }).catch((reason) => {
                     alert(reason.message)
@@ -80,6 +83,7 @@ class Order extends React.Component {
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Iade Iptal Edilmiştir.')
+                            window.location.reload()
                         }
                     }).catch((reason) => {
                         alert(reason.message)
