@@ -1,13 +1,10 @@
 import React from 'react'
 import axios from 'axios'
-import Cookies from 'universal-cookie'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 import Order from './Order'
 import Product from './Product'
-
-const cookies = new Cookies()
 
 class Details extends React.Component {
     state = {
@@ -15,10 +12,7 @@ class Details extends React.Component {
     }
 
     UNSAFE_componentWillMount() {
-        axios.get(`${process.env.REACT_APP_API_URL}/manager/order/${this.props.match.params.id}`,
-            { headers: { Authorization: cookies.get('manager-token') } }
-        ).then(({ data }) => {
-            console.log('data', data)
+        axios.get(`${process.env.REACT_APP_API_URL}/manager/order/${this.props.match.params.id}`).then(({ data }) => {
             this.setState({ order: data })
         }).catch((err) => {
             console.log('err', err)

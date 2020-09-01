@@ -32,9 +32,6 @@ class Login extends React.Component {
             } else {
                 alert('Şifre veya telefon numarası yanlış!')
             }
-        }).catch((err) => {
-            console.log('err', err)
-            alert('Beklenmedik bir hata oluştu!')
         })
     }
 

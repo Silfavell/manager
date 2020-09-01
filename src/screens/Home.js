@@ -18,13 +18,8 @@ class Home extends React.Component {
             this.props.history.push('/login')
         }
 
-        axios.get(`${process.env.REACT_APP_API_URL}/manager/orders`, {
-            headers: {
-                Authorization: cookies.get('manager-token')
-            }
-        }).then(({ data, status }) => {
+        axios.get(`${process.env.REACT_APP_API_URL}/manager/orders`).then(({ data, status }) => {
             if (status === 200) {
-                console.log(data)
                 this.setState({ orders: data ?? [] })
             }
         }).catch((err) => {

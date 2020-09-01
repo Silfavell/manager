@@ -5,6 +5,10 @@ import App from './App'
 import * as serviceWorker from './serviceWorker'
 import 'dotenv/config'
 
+import axios from './utils/axios'
+
+axios()
+
 ReactDOM.render(
   <React.StrictMode>
     <App />

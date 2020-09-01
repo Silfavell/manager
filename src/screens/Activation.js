@@ -23,7 +23,6 @@ class Activation extends React.Component {
             ...this.props.history.location.state,
             activationCode: this.state.activationCode
         }).then(({ data, status }) => {
-            console.log(data)
             if (status === 200) {
                 alert(
                     'Bayi üyeliğiniz yönetici tarafından onaylanınca telefonunuza şifreniz mesaj olarak iletilecektir.'

@@ -1,8 +1,5 @@
 import React from 'react'
-import Cookies from 'universal-cookie'
 import axios from 'axios'
-
-const cookies = new Cookies()
 
 class Order extends React.Component {
 
@@ -16,9 +13,7 @@ class Order extends React.Component {
 
         if (message) {
             if (message.length === 12) {
-                axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/confirm/${this.props.order._id}`,
-                    { message },
-                    { headers: { Authorization: cookies.get('manager-token') } })
+                axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/confirm/${this.props.order._id}`, { message })
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Sipariş onaylanmıştır.')
@@ -40,7 +35,7 @@ class Order extends React.Component {
             if (message.length > 10) {
                 axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/cancel/${this.props.order._id}`,
                     { message },
-                    { headers: { Authorization: cookies.get('manager-token') } })
+                )
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Sipariş Iptal Edilmiştir.')
@@ -60,7 +55,7 @@ class Order extends React.Component {
 
         if (confirm) {
             axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/accept-return/${this.props.order._id}`, {},
-                { headers: { Authorization: cookies.get('manager-token') } })
+            )
                 .then(({ status }) => {
                     if (status === 200) {
                         alert('Sipariş Iadesi Kabul Edilmiştir.')
@@ -77,9 +72,7 @@ class Order extends React.Component {
 
         if (message) {
             if (message.length > 10) {
-                axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/cancel-return/${this.props.order._id}`,
-                    { message },
-                    { headers: { Authorization: cookies.get('manager-token') } })
+                axios.put(`${process.env.REACT_APP_API_URL}/manager/orders/cancel-return/${this.props.order._id}`, { message })
                     .then(({ status }) => {
                         if (status === 200) {
                             alert('Iade Iptal Edilmiştir.')
@@ -106,7 +99,6 @@ class Order extends React.Component {
     )
 
     getButtons = () => {
-        console.log(this.props.order.status)
         switch (this.props.order.status) {
             case 0: return (
                 <>
