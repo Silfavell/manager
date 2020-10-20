@@ -124,7 +124,8 @@ class Order extends React.Component {
                 customer,
                 date,
                 address,
-                paidPrice
+                paidPrice,
+                cargoPrice
             }
         } = this.props
 
@@ -135,6 +136,7 @@ class Order extends React.Component {
                     <div>Tarih: {new Date(date).toLocaleDateString('tr', { day: '2-digit', month: '2-digit', year: 'numeric' })}</div>
                     <div>Adres: {address}</div>
                     <div>Toplam Ücret: {paidPrice.toFixed(2).replace('.', ',')}</div>
+                    <div>Kargo Ücreti: {cargoPrice.toFixed(2).replace('.', ',')}</div>
                 </div>
 
                 <div className='col-md-2'>
